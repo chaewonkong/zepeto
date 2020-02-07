@@ -15,8 +15,7 @@ export const api = {
     return res.data;
   },
   getDetail: async hashCode => {
-    let res = await baseAPI.get(`https://api.zzz.studio/api/me/${hash}`);
-
+    let res = await baseAPI.get(`https://api.zzz.studio/api/me/${hashCode}`);
     return res.data;
   }
 };

@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import styled from "styled-components";
 import LatestList from "../components/LatestList";
+import Banner from "../components/Banner";
+import Crew from "../components/Crew";
+import { useSelector, useDispatch } from "react-redux";
+import * as actions from "../actions/action";
+import { api } from "../api";
 
 const TodayLabel = styled.div`
   font-size: 28px;
@@ -30,6 +35,19 @@ const IconWrapper = styled.div`
 `;
 
 const Today = () => {
+  const today = useSelector(state => state.today, []);
+  const dispatch = useDispatch();
+  console.log(today);
+
+  const getToday = async () => {
+    const data = await api.getToday();
+    if (data && data.result) dispatch(actions.getToday(data.result));
+  };
+
+  useEffect(() => {
+    getToday();
+  }, []);
+
   return (
     <div>
       <Header>
@@ -42,6 +60,8 @@ const Today = () => {
         </TodayHeaderRight>
       </Header>
       <LatestList></LatestList>
+      <Banner></Banner>
+      <Crew></Crew>
     </div>
   );
 };
